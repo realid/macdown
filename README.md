@@ -1,19 +1,24 @@
 # MacDown
 
-[![](https://img.shields.io/github/release/MacDownApp/macdown.svg)](http://macdown.uranusjr.com/download/latest/)
-![Total downloads](https://img.shields.io/github/downloads/MacDownApp/macdown/latest/total.svg)
-[![Build Status](https://travis-ci.org/MacDownApp/macdown.svg?branch=master)](https://travis-ci.org/MacDownApp/macdown)
+[![](https://img.shields.io/github/release/realid/macdown.svg)](https://github.com/realid/macdown/releases/latest)
+![Total downloads](https://img.shields.io/github/downloads/realid/macdown/latest/total.svg)
 
 
-MacDown is an open source Markdown editor for OS X, released under the MIT License. The author stole the idea from [Chen Luo](https://twitter.com/chenluois)’s [Mou](http://mouapp.com) so that people can make crappy clones.
+MacDown is an open source Markdown editor for macOS, released under the MIT License. The author stole the idea from [Chen Luo](https://twitter.com/chenluois)’s [Mou](http://mouapp.com) so that people can make crappy clones.
 
-Visit the [project site](http://macdown.uranusjr.com/) for more information, or download [MacDown.app.zip](http://macdown.uranusjr.com/download/latest/) directly from the [latest releases](https://github.com/MacDownApp/macdown/releases/latest) page.
+Download current builds from the [GitHub Releases](https://github.com/realid/macdown/releases/latest) page.
 
 ## Install
 
-[Download](http://macdown.uranusjr.com/download/latest/), unzip, and drag the app to Applications folder. MacDown is also available through [Homebrew Cask](https://caskroom.github.io/):
+[Download the latest release](https://github.com/realid/macdown/releases/latest), unzip it, and drag the app to Applications.
+
+Current release builds in this fork target macOS 11.0 and newer and include Apple Silicon native binaries.
+
+MacDown is also available through Homebrew:
 
     brew install --cask macdown
+
+Note: the Homebrew cask may track upstream MacDown releases instead of this fork.
 
 ## Screenshot
 
@@ -45,15 +50,19 @@ The following editor themes and CSS files are extracted from [Mou](http://mouapp
 
 ## Development
 
+This fork has been updated to build as a native Apple Silicon app on modern macOS.
+
 ### Requirements
 
 If you wish to build MacDown yourself, you will need the following components/tools:
 
 * Full Xcode with the macOS SDK (Apple Silicon native builds require Xcode.app, not just the Command Line Tools)
 * Git
-* [Bundler](http://bundler.io)
+* A separate Ruby environment plus [Bundler](http://bundler.io)
 
-> Note: Old versions of CocoaPods are not supported. Please use Bundler to execute CocoaPods, or make sure your CocoaPods is later than shown in `Gemfile.lock`.
+> Note: Do not rely on the system Ruby for CocoaPods. Use a separate Ruby installation and run CocoaPods through Bundler.
+
+> Note: Old versions of CocoaPods are not supported. Please use Bundler to execute CocoaPods, or make sure your CocoaPods is at least as new as the version shown in `Gemfile.lock`.
 
 > Note: The active developer directory must point to the full Xcode app when building the macOS targets. If `xcodebuild` reports that only the Command Line Tools are selected, switch with:
 >
@@ -72,7 +81,11 @@ After cloning the repository, run the following commands inside the repository r
     bundle exec pod install
     make -C Dependency/peg-markdown-highlight
 
-and open `MacDown.xcworkspace` in Xcode. The first command initialises the dependency submodule(s) used in MacDown; the second one installs dependencies managed by CocoaPods.
+Then open `MacDown.xcworkspace` in Xcode. The first command initialises the dependency submodule(s) used in MacDown; the second one installs dependencies managed by CocoaPods.
+
+For command-line builds, a typical release build looks like:
+
+    xcodebuild -workspace MacDown.xcworkspace -scheme MacDown -configuration Release -sdk macosx -arch arm64 build
 
 Refer to the official guides of Git and CocoaPods if you need more instructions. If you run into build issues later on, try running the following commands to update dependencies:
 
@@ -87,14 +100,10 @@ Please help translation on [Transifex](https://www.transifex.com/macdown/macdown
 
 ## Discussion
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MacDownApp/macdown)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/realid/macdown)
 
-Join our [Gitter channel](https://gitter.im/MacDownApp/macdown) if you have any problems with MacDown. Any suggestions are welcomed, too!
+Join our [Gitter channel](https://gitter.im/realid/macdown) if you have any problems with MacDown. Any suggestions are welcomed, too!
 
-You can also [file an issue directly](https://github.com/MacDownApp/macdown/issues/new) on GitHub if you prefer so. But please, **search first to make sure no-one has reported the same issue already** before opening one yourself. MacDown does not update in your computer immediately when we make changes, so something you experienced might be known, or even fixed in the development version.
+You can also [file an issue directly](https://github.com/realid/macdown/issues/new) on GitHub if you prefer so. But please, **search first to make sure no-one has reported the same issue already** before opening one yourself. MacDown does not update in your computer immediately when we make changes, so something you experienced might be known, or even fixed in the development version.
 
 MacDown depends a lot on other open source projects, such as [Hoedown](https://github.com/hoedown/hoedown) for Markdown-to-HTML rendering, [Prism](http://prismjs.com) for syntax highlighting (in code blocks), and [PEG Markdown Highlight](https://github.com/ali-rantakari/peg-markdown-highlight) for editor highlighting. If you find problems when using those particular features, you can also consider reporting them directly to upstream projects as well as to MacDown’s issue tracker. I will do what I can if you report it here, but sometimes it can be more beneficial to interact with them directly.
-
-## Tipping
-
-If you find MacDown suitable for your needs, please consider [giving me a tip through PayPal](http://macdown.uranusjr.com/faq/#donation). Or, if you prefer to buy me a drink *personally* instead, just [send me a tweet](https://twitter.com/uranusjr) when you visit [Taipei, Taiwan](http://en.wikipedia.org/wiki/Taipei), where I live. I look forward to meeting you!
