@@ -49,19 +49,19 @@ The following editor themes and CSS files are extracted from [Mou](http://mouapp
 
 If you wish to build MacDown yourself, you will need the following components/tools:
 
-* OS X SDK (10.14 or later)
+* Full Xcode with the macOS SDK (Apple Silicon native builds require Xcode.app, not just the Command Line Tools)
 * Git
 * [Bundler](http://bundler.io)
 
 > Note: Old versions of CocoaPods are not supported. Please use Bundler to execute CocoaPods, or make sure your CocoaPods is later than shown in `Gemfile.lock`.
 
-> Note: The Command Line Tools (CLT) should be unnecessary. If you failed to compile without it, please install CLT with
+> Note: The active developer directory must point to the full Xcode app when building the macOS targets. If `xcodebuild` reports that only the Command Line Tools are selected, switch with:
 >
->     xcode-select --install
+>     sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 >
-> and report back.
+> and then retry.
 
-An appropriate SDK should be bundled with Xcode 5 or later versions.
+MacDown now targets macOS 11.0 and newer for Apple Silicon native builds.
 
 ### Environment Setup
 
@@ -98,4 +98,3 @@ MacDown depends a lot on other open source projects, such as [Hoedown](https://g
 ## Tipping
 
 If you find MacDown suitable for your needs, please consider [giving me a tip through PayPal](http://macdown.uranusjr.com/faq/#donation). Or, if you prefer to buy me a drink *personally* instead, just [send me a tweet](https://twitter.com/uranusjr) when you visit [Taipei, Taiwan](http://en.wikipedia.org/wiki/Taipei), where I live. I look forward to meeting you!
-

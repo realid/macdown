@@ -8,7 +8,6 @@
 
 #import "MPMainController.h"
 #import <MASPreferences/MASPreferencesWindowController.h>
-#import <Sparkle/SUUpdater.h>
 #import "MPGlobals.h"
 #import "MPUtilities.h"
 #import "NSDocumentController+Document.h"
@@ -225,6 +224,12 @@ NS_INLINE void treat()
     MPOpenBundledFile(@"contribute", @"md");
 }
 
+- (IBAction)checkForUpdates:(id)sender
+{
+    NSURL *releasesURL = [NSURL URLWithString:@"https://github.com/MacDownApp/macdown/releases/latest"];
+    [[NSWorkspace sharedWorkspace] openURL:releasesURL];
+}
+
 
 #pragma mark - Override
 
@@ -258,17 +263,6 @@ NS_INLINE void treat()
     [self openPendingFiles];
     treat();
 }
-
-
-#pragma mark - SUUpdaterDelegate
-
-- (NSString *)feedURLStringForUpdater:(SUUpdater *)updater
-{
-    if (self.preferences.updateIncludesPreReleases)
-        return [NSBundle mainBundle].infoDictionary[@"SUBetaFeedURL"];
-    return [NSBundle mainBundle].infoDictionary[@"SUFeedURL"];
-}
-
 
 #pragma mark - Private
 
